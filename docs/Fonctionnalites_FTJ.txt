@@ -1,0 +1,8 @@
+Fonctionnalités clés
+
+- Recherche de l'aéroport ( Genève par défaut )
+- Recherche de tous les vols en départ de l'aéroport sélectionner 
+- Trouver les avions des vols
+- Calculer la distance en vol d'oiseau entre l'aéroprt de départ et l'aéorport d'arrivée 
+- Trouver la quantité de Fuel que csonomme l'avion pour 100 km
+- Estimer la consommation de Fuel pour le trajet 
