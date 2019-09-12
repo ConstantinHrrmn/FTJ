@@ -1,1 +1,0 @@
-<div>Salut laravel</div>
