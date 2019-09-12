@@ -14,3 +14,9 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('apitest', function () {
+    return view('apitest');
+});
+
+Route::get('/api', "FlightAPI@LoadPage");
