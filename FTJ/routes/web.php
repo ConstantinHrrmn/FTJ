@@ -25,3 +25,5 @@ Route::get('apitest', function () {
 });
 
 Route::get('/api', "FlightAPI@LoadPage");
+
+Route::get('/airport/{icao}/flights','FlightAPI@loadFlights')->name('airport.flights');

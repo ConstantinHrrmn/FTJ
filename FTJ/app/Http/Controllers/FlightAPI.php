@@ -9,7 +9,7 @@ class FlightAPI extends Controller
 {
     public function LoadPage(){
         $selected = Airport::where('ICAO', 'LSGG')->first();
-        
+
         $end = time();
         $begin = date('Y-m-d H:i:s', strtotime('+1 day', $end));
 
@@ -21,5 +21,9 @@ class FlightAPI extends Controller
         $data = array($selected, $flights);
 
         return view('apitest', compact('data'));
+    }
+
+    public function loadFlights(Request $request,$icao){
+        return view('airport.flights',compact('icao'));
     }
 }

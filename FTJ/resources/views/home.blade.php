@@ -79,7 +79,7 @@
         </div>
         <div class="row">
             <div class="col-5 offset-7">
-                <a href="" class="btn btn-outline-primary form-control">See Departures/Arrivals</a>
+                <a href="{{route('airport.flights','LSGG')}}" class="btn btn-outline-primary form-control">See Departures/Arrivals</a>
             </div>
         </div>
     </div>
