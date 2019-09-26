@@ -20,3 +20,8 @@ Route::get('/', function () {
 Route::get('/home', function (){
     return view('home');
 });
+Route::get('apitest', function () {
+    return view('apitest');
+});
+
+Route::get('/api', "FlightAPI@LoadPage");
