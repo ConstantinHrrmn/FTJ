@@ -10,12 +10,20 @@ class FlightAPI extends Controller
     public function LoadPage(){
         $selected = Airport::where('ICAO', 'LSGG')->first();
         
-        $end = time();
-        $begin = date('Y-m-d H:i:s', strtotime('+1 day', $end));
+        $now = time();
+        
+        $begin = date('Y-m-d', strtotime('-11 day', $now));
+        $begin = new \DateTime($begin);
+        $begin = $begin->getTimestamp();
 
-        var_dump(time());
+        $end = date('Y-m-d', strtotime('-10 day', $now));
+        $end = new \DateTime($end);
+        $end = $end->getTimestamp();
 
-        $json = file_get_contents('https://opensky-network.org/api/flights/departure?airport=LSGG&begin='.$begin.'&end='.$end);
+
+        $url = 'https://opensky-network.org/api/flights/departure?airport=LSGG&begin='.$begin.'&end='.$end;
+
+        $json = file_get_contents($url);
         $flights = json_decode($json);
 
         $data = array($selected, $flights);
