@@ -67,24 +67,26 @@
         <div class="flex-center position-ref full-height">
 
             <div class="content">
-                <div class="title m-b-md">
-                    TESTS PAGE
-                </div>
-
                 <div>
-                {{ $data[0]->name }}
-                </div>
-
-                <div>
-                    DEPARTURE <br>
+                    <table>
+                        <th>Flight number</th>
+                        <th>Departure Airport</th>
+                        <th>Destination Airport</th>
+                    @php $i = 0; @endphp
                     @foreach($data[1] as $flight)
-                        <p>{{$flight->callsign}}</p>
+                        @if($flight->estArrivalAirport != null)
+                            <tr>
+                                <td>{{$flight->callsign}}</td><td>{{$flight->estDepartureAirport}}</td><td>{{$flight->estArrivalAirport}}</td>
+                                @php $i++; @endphp
+                            </tr>
+                        @endif
+                        @if($i == 30)
+                            @break
+                        @endif
                     @endforeach
+                    </table>
                 </div>
-
-            </div>
-
-            
+            </div>         
         </div>
     </body>
 </html>
