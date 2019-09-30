@@ -10,6 +10,8 @@ class FlightAPI extends Controller
     public function LoadPage(){
         $selected = Airport::where('ICAO', 'LSGG')->first();
 
+        $destinationsAirports = array();
+
         $now = time();
 
         $begin = date('Y-m-d', strtotime('-11 day', $now));
@@ -26,7 +28,11 @@ class FlightAPI extends Controller
         $json = file_get_contents($url);
         $flights = json_decode($json);
 
-        $data = array($selected, $flights);
+        foreach($flights as $flight){
+            array_push($destinationsAirports, Airport::where('ICAO', $flight->estArrivalAirport)->first());
+        }
+
+        $data = array($selected, $flights, $destinationsAirports);
 
         return view('apitest', compact('data'));
     }

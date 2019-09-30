@@ -71,12 +71,13 @@
                     <table>
                         <th>Flight number</th>
                         <th>Departure Airport</th>
+                        <th>Destination Airport ICAO</th>
                         <th>Destination Airport</th>
                     @php $i = 0; @endphp
                     @foreach($data[1] as $flight)
                         @if($flight->estArrivalAirport != null)
                             <tr>
-                                <td>{{$flight->callsign}}</td><td>{{$flight->estDepartureAirport}}</td><td>{{$flight->estArrivalAirport}}</td>
+                                <td>{{$flight->callsign}}</td><td>{{$data[0]->name}}</td><td>{{$flight->estArrivalAirport}}</td><td>{{$data[2][$i]["name"]}}</td>
                                 @php $i++; @endphp
                             </tr>
                         @endif
