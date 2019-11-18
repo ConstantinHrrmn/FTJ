@@ -8,6 +8,7 @@
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
         <!-- Styles -->
         <style>
@@ -61,27 +62,42 @@
             .m-b-md {
                 margin-bottom: 30px;
             }
+
+            
         </style>
     </head>
     <body>
-        <div class="flex-center position-ref full-height">
+        <!-- flex-center position-ref full-height -->
+        <div class="">
 
+            <!-- table table-dark -->
             <div class="content">
                 <div>
-                    <table>
+                    <table class="">
                         <th>Flight number</th>
                         <th>Departure Airport</th>
-                        <th>Destination Airport ICAO</th>
+                        <th>city / country</th>
                         <th>Destination Airport</th>
+                        <th>city / country</th>
+                        <th>Distance</th>
+                        <th>Duration</th>
+                        <th>Plane</th>
                     @php $i = 0; @endphp
                     @foreach($data[1] as $flight)
                         @if($flight->estArrivalAirport != null)
                             <tr>
-                                <td>{{$flight->callsign}}</td><td>{{$data[0]->name}}</td><td>{{$flight->estArrivalAirport}}</td><td>{{$data[2][$i]["name"]}}</td>
+                                <td>{{$flight->callsign}}</td>
+                                <td>{{$data[0]->name}}</td>
+                                <td>{{$data[0]->city}} / {{$data[0]->country}}</td>
+                                <td>{{$data[2][$i]["name"]}}</td>
+                                <td>{{$data[2][$i]["city"]}} / {{$data[2][$i]["country"]}}</td>
+                                <td>{{$data[3][$i]}} km</td>
+                                <td>{{$data[5][$i]}}</td>
+                                <td>{{$data[4][$i]['model']}} </td>
                                 @php $i++; @endphp
                             </tr>
                         @endif
-                        @if($i == 30)
+                        @if($i == 150)
                             @break
                         @endif
                     @endforeach
