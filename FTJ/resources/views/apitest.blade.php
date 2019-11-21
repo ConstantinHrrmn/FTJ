@@ -82,6 +82,7 @@
                         <th>Distance</th>
                         <th>Duration</th>
                         <th>Plane</th>
+                        <th>Consumption</th>
                     @php $i = 0; @endphp
                     @foreach($data[1] as $flight)
                         @if($flight->estArrivalAirport != null)
@@ -94,6 +95,7 @@
                                 <td>{{$data[3][$i]}} km</td>
                                 <td>{{$data[5][$i]}}</td>
                                 <td>{{$data[4][$i]['model']}} </td>
+                                <td>{{$data[6][$i]}} kg</td>
                                 @php $i++; @endphp
                             </tr>
                         @endif

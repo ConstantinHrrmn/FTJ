@@ -48,7 +48,7 @@ class FlightAPI extends Controller
         return $output;
     }
 
-    private function GetFuelConsumption($aircraft){
+    private function GetFuelConsumption($aircraft, $begin, $end){
         $exploded = explode(" ", $aircraft);
         $search = "";
         
@@ -58,11 +58,21 @@ class FlightAPI extends Controller
             $search = $exploded[0];
         }
 
-       
         $exploded2 = explode("-",$search);
-        $raw = 'Aircraft LIKE \'%'.$exploded2[0].'%\'';
-        $kgh = fuel::whereRaw('Aircraft LIKE \'%?%\'', [$exploded2[0]])->first();
-        var_dump($kgh);
+
+        if(strlen($exploded2[0]) == 0)
+            $exploded2[0] = "A320";
+
+        $kgh = fuel::where('Aircraft', 'like', '%'.$exploded2[0].'%')->first();
+
+        if($kgh == null)
+            $kgh = fuel::where('Aircraft', 'like', '%A320%')->first();
+
+        $kgh = $kgh->kgh;
+        $kgs = $kgh / 3600;
+        $kgtotal = $kgs * ($end-$begin);
+
+        return round($kgtotal);
        
     }
     
@@ -73,6 +83,7 @@ class FlightAPI extends Controller
         $flightDistances = array();
         $planes = array();
         $flighttimes = array();
+        $fuelconsumptions = array();
 
         $now = time();
 
@@ -99,7 +110,7 @@ class FlightAPI extends Controller
             $plane = $this->GetPlane($flight->icao24);
             array_push($planes,$plane);
             array_push($flighttimes,  $this->GetFlightTime($flight->firstSeen, $flight->lastSeen));
-            $this->GetFuelConsumption($plane['model']);
+            array_push($fuelconsumptions ,$this->GetFuelConsumption($plane['model'],$flight->firstSeen,$flight->lastSeen));
 
             $i++;
             if($i >= 150){
@@ -107,7 +118,7 @@ class FlightAPI extends Controller
             }
         }
 
-        $data = array($selected, $flights, $destinationsAirports, $flightDistances,$planes, $flighttimes);
+        $data = array($selected, $flights, $destinationsAirports, $flightDistances,$planes, $flighttimes, $fuelconsumptions);
 
         return view('apitest', compact('data'));
     }
